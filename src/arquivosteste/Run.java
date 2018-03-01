@@ -19,11 +19,6 @@ public class Run {
         File arquivo = new File("Arquivo.txt");
         Arquivo classeLer = new Arquivo();
         ArrayList leitura = classeLer.retirarTabulacao(arquivo);
-        
-//        classeLer.escreverArquivo("bahiaViado",leitura);
         classeLer.escreverArquivo("novoArquivo",leitura);
-        
-        // Imprimindo a frase
-//        leitura.forEach((frase) -> {System.out.println(frase);});
     }
 }
