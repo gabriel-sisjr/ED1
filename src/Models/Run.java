@@ -37,14 +37,11 @@ public class Run {
 
             infoBolsa.add(info);
         }
-//        classeLer.escreverArquivoOrganizado("2", infoBolsa);
-
-        for (int j = infoBolsa.size() - 1; j > 1; j--) {
-            for (int i = 0; i < j; i++) {
-                BubbleSort.bubbleSortId(infoBolsa.get(i), infoBolsa.get(i + 1));
-            }
-        }
-        
-        classeLer.escreverArquivoOrganizado("3", infoBolsa);
+        classeLer.escreverArquivoOrganizado("2", infoBolsa);
+        // Parte da gambiarra
+        ArrayList<BolsaFamilia> teste = new ArrayList<>();
+        teste = BubbleSort.bubbleSortNomeMunicipio(infoBolsa);
+        // Gravando a gambiarra
+        classeLer.escreverArquivoOrganizado("ordenadoPorNomeMunicipio", teste);
     }
 }
