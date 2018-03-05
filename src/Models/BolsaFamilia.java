@@ -14,13 +14,13 @@ public class BolsaFamilia {
     long id;
     String ufEstado;
     int codigoMunicipio;
+    long nisFavorecido;
     String nomeMunicipio;
-    String nisFavorecido;
     String nomeFavorecido;
     float valorParcela;
 
     // Metodo Construtor
-    public BolsaFamilia(long id, String ufEstado, int codigoMunicipio, String nomeMunicipio, String nisFavorecido, String nomeFavorecido, float valorParcela) {
+    public BolsaFamilia(long id, String ufEstado, int codigoMunicipio, String nomeMunicipio, long nisFavorecido, String nomeFavorecido, float valorParcela) {
         this.id = id;
         this.ufEstado = ufEstado;
         this.codigoMunicipio = codigoMunicipio;
@@ -47,7 +47,7 @@ public class BolsaFamilia {
         return nomeMunicipio;
     }
 
-    public String getNisFavorecido() {
+    public long getNisFavorecido() {
         return nisFavorecido;
     }
 
@@ -76,7 +76,7 @@ public class BolsaFamilia {
         this.nomeMunicipio = nomeMunicipio;
     }
 
-    public void setNisFavorecido(String nisFavorecido) {
+    public void setNisFavorecido(long nisFavorecido) {
         this.nisFavorecido = nisFavorecido;
     }
 

@@ -5,8 +5,8 @@
  */
 package Models;
 
+import Algoritmos.BubbleSort;
 import GerenciadorArquivos.Arquivo;
-import Algoritmos.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,15 +33,16 @@ public class Run {
             String[] campoConvertido = linha.split(",");
 
 //             Criando o objeto e adicionando ao arrayList do tipo BolsaFamilia
-            BolsaFamilia info = new BolsaFamilia(i, campoConvertido[1], Integer.parseInt(campoConvertido[2]), campoConvertido[3], campoConvertido[4], campoConvertido[5], Float.parseFloat(campoConvertido[6]));
+            BolsaFamilia info = new BolsaFamilia(i, campoConvertido[1], Integer.parseInt(campoConvertido[2]), campoConvertido[3],
+                    Long.parseLong(campoConvertido[4]), campoConvertido[5], Float.parseFloat(campoConvertido[6]));
 
             infoBolsa.add(info);
         }
-        classeLer.escreverArquivoOrganizado("2", infoBolsa);
+//        classeLer.escreverArquivoOrganizado("2", infoBolsa);
         // Parte da gambiarra
         ArrayList<BolsaFamilia> teste = new ArrayList<>();
-        teste = BubbleSort.bubbleSortNomeMunicipio(infoBolsa);
+        teste = BubbleSort.bubbleSortValorParcela(infoBolsa);
         // Gravando a gambiarra
-        classeLer.escreverArquivoOrganizado("ordenadoPorNomeMunicipio", teste);
+        classeLer.escreverArquivoOrganizado("ordenadoPorParcela", teste);
     }
 }
