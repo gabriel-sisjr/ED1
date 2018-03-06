@@ -29,6 +29,10 @@ public class BolsaFamilia {
         this.nomeFavorecido = nomeFavorecido;
         this.valorParcela = valorParcela;
     }
+
+    public BolsaFamilia() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     // Metodos Getters
     public long getId() {

@@ -24,10 +24,13 @@ public class SelectionSort {
                 if(array.get(in).getId() < array.get(min).getId())
                     min = in;
                 array.set(out, array.get(min));
-                array.set(in, array.get(out));
+                array.set(min, array.get(out));
             }
         }
         return array;
     }
+    
+    
+    
     
 }

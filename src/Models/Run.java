@@ -7,6 +7,8 @@ package Models;
 
 import Algoritmos.BubbleSort;
 import Algoritmos.InsertionSort;
+import Algoritmos.MergeSort;
+import Algoritmos.QuickSort;
 import Algoritmos.SelectionSort;
 import Algoritmos.ShellSort;
 import GerenciadorArquivos.Arquivo;
@@ -45,10 +47,10 @@ public class Run {
 
 // ==================================================================================================
         // BUBBLESORT ========== PRONTO
-        ArrayList<BolsaFamilia> arrayOrdenado = new ArrayList<>();
-        arrayOrdenado = BubbleSort.bubbleSortIdMunicipio(infoBolsa);
+       // ArrayList<BolsaFamilia> arrayOrdenado = new ArrayList<>();
+       // arrayOrdenado = BubbleSort.bubbleSortUfEstado(infoBolsa);
         // Gravando o arrayOrdenado
-        classeLer.escreverArquivoOrganizado("bubbleSort/ordenadoPorIdCid", arrayOrdenado);
+        //classeLer.escreverArquivoOrganizado("bubbleSort/ordenadoPorUfEstado", arrayOrdenado);
         
 
 // ==================================================================================================
@@ -80,5 +82,23 @@ public class Run {
 //        arrayShell = ShellSort.shellsortValorParcela(infoBolsa);
         // Gravando o arrayOrdenado
 //        classeLer.escreverArquivoOrganizado("shellSort/ordenadoPorValorParcela", arrayShell);
+
+//=====================================================================================================
+        //SelectionShort=============PRONTO
+         // ArrayList<BolsaFamilia> arrayShell = new ArrayList<>();
+        //  arrayShell = SelectionSort.selectionSortId(infoBolsa);
+        // Gravando o arrayOrdenado
+         //  classeLer.escreverArquivoOrganizado("SelectionSort/ordenadoPorValorParcela", arrayShell);
+         
+//======================================================================================================
+  //      QuickSort.QuickSortOrdenadoPorID(infoBolsa, 0, infoBolsa.size()-1);
+//        classeLer.escreverArquivoOrganizado("QuickSort/ordenadoPorIDM", infoBolsa);
+        
+//======================================================================================================
+    
+        ArrayList<BolsaFamilia> Temp = new ArrayList<>();
+       MergeSort.MergeSortOrdenadoPorID(infoBolsa, Temp, 0, infoBolsa.size()-1);
+       classeLer.escreverArquivoOrganizado("MergeSort/ordenadoPorID", infoBolsa);
+        
     }
 }
