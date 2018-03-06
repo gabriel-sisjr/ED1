@@ -33,8 +33,8 @@ public class Arquivo {
             
             String linhaLida;
             // Laço para retirar os caracteres
-            while((linhaLida = entrada.readLine()) != null){
-                    arrayString.add(linhaLida);
+            while(entrada.ready()){
+                    arrayString.add(entrada.readLine());
                     registro++;
             }
             
@@ -59,8 +59,8 @@ public class Arquivo {
                 escritor.print(arrayInfoBolsa.get(i).getId()+",");
                 escritor.print(arrayInfoBolsa.get(i).getUfEstado()+",");
                 escritor.print(arrayInfoBolsa.get(i).getCodigoMunicipio()+",");
-                escritor.print(arrayInfoBolsa.get(i).getNisFavorecido()+",");
                 escritor.print(arrayInfoBolsa.get(i).getNomeMunicipio()+",");
+                escritor.print(arrayInfoBolsa.get(i).getNisFavorecido()+",");
                 escritor.print(arrayInfoBolsa.get(i).getNomeFavorecido()+",");
                 escritor.println(arrayInfoBolsa.get(i).getValorParcela());
                 registro++;

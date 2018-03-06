@@ -41,8 +41,8 @@ public class Run {
 //        classeLer.escreverArquivoOrganizado("2", infoBolsa);
         // Parte da gambiarra
         ArrayList<BolsaFamilia> teste = new ArrayList<>();
-        teste = BubbleSort.bubbleSortValorParcela(infoBolsa);
+        teste = BubbleSort.bubbleSortId(infoBolsa);
         // Gravando a gambiarra
-        classeLer.escreverArquivoOrganizado("ordenadoPorParcela", teste);
+        classeLer.escreverArquivoOrganizado("ordenadoPorId", teste);
     }
 }

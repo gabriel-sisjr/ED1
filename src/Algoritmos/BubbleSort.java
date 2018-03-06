@@ -18,18 +18,11 @@ public class BubbleSort {
     public static ArrayList bubbleSortId(ArrayList<BolsaFamilia> arrayBolsaFamilia) {
         for (int j = arrayBolsaFamilia.size() - 1; j > 1; j--) {
             for (int i = 0; i < j; i++) {
-                BolsaFamilia obj1 = arrayBolsaFamilia.get(i);
-                BolsaFamilia obj2 = arrayBolsaFamilia.get((i + 1));
+                BolsaFamilia objetoIndice = arrayBolsaFamilia.get(i);
+                BolsaFamilia objetoIndiceMais1 = arrayBolsaFamilia.get((i + 1));
                 // Testando os itens
-                if (obj1.getId() > obj2.getId()) {
-                    BolsaFamilia objetoIndice = arrayBolsaFamilia.get(i);
-                    BolsaFamilia objetoIndiceMais1 = arrayBolsaFamilia.get((i + 1));
-                    // Testando a gambiarra
-                    arrayBolsaFamilia.remove(objetoIndiceMais1);
-                    arrayBolsaFamilia.remove(objetoIndice);
-                    arrayBolsaFamilia.add((i + 1), objetoIndice);
-                    arrayBolsaFamilia.add(i, objetoIndiceMais1);
-                }
+                if (objetoIndice.getId() > objetoIndiceMais1.getId())
+                    Troca.troca(arrayBolsaFamilia, objetoIndice, objetoIndiceMais1, i);
             }
         }
         return arrayBolsaFamilia;
@@ -39,17 +32,11 @@ public class BubbleSort {
     public static ArrayList bubbleSortUfEstado(ArrayList<BolsaFamilia> arrayBolsaFamilia) {
         for (int j = arrayBolsaFamilia.size() - 1; j > 1; j--) {
             for (int i = 0; i < j; i++) {
-                BolsaFamilia obj1 = arrayBolsaFamilia.get(i);
-                BolsaFamilia obj2 = arrayBolsaFamilia.get((i + 1));
+                BolsaFamilia objetoIndice = arrayBolsaFamilia.get(i);
+                BolsaFamilia objetoIndiceMais1 = arrayBolsaFamilia.get((i + 1));
                 // Testando os itens
-                if (obj1.getUfEstado().compareTo(obj2.getUfEstado()) > 0 || obj1.getUfEstado().compareTo(obj2.getUfEstado()) == 0) {
-                    BolsaFamilia objetoIndice = arrayBolsaFamilia.get(i);
-                    BolsaFamilia objetoIndiceMais1 = arrayBolsaFamilia.get((i + 1));
-                    // Testando a gambiarra
-                    arrayBolsaFamilia.remove(objetoIndiceMais1);
-                    arrayBolsaFamilia.remove(objetoIndice);
-                    arrayBolsaFamilia.add((i + 1), objetoIndice);
-                    arrayBolsaFamilia.add(i, objetoIndiceMais1);
+                if (objetoIndice.getUfEstado().compareTo(objetoIndiceMais1.getUfEstado()) > 0 || objetoIndice.getUfEstado().compareTo(objetoIndiceMais1.getUfEstado()) == 0) {
+                    Troca.troca(arrayBolsaFamilia, objetoIndice, objetoIndiceMais1, i);
                 }
             }
         }
@@ -58,20 +45,13 @@ public class BubbleSort {
     
     // Ordenando por Codigo do Municipio.
     public static ArrayList bubbleSortIdMunicipio(ArrayList<BolsaFamilia> arrayBolsaFamilia) {
-        for (int j = arrayBolsaFamilia.size() - 1; j > 1; j--) {
+        for (int j = arrayBolsaFamilia.size() - 1; j >= 1; j--) {
             for (int i = 0; i < j; i++) {
-                BolsaFamilia obj1 = arrayBolsaFamilia.get(i);
-                BolsaFamilia obj2 = arrayBolsaFamilia.get((i + 1));
+                BolsaFamilia objetoIndice = arrayBolsaFamilia.get(i);
+                BolsaFamilia objetoIndiceMais1 = arrayBolsaFamilia.get((i + 1));
                 // Testando os itens
-                if (obj1.getCodigoMunicipio() > obj2.getCodigoMunicipio()) {
-                    BolsaFamilia objetoIndice = arrayBolsaFamilia.get(i);
-                    BolsaFamilia objetoIndiceMais1 = arrayBolsaFamilia.get((i + 1));
-                    // Testando a gambiarra
-                    arrayBolsaFamilia.remove(objetoIndiceMais1);
-                    arrayBolsaFamilia.remove(objetoIndice);
-                    arrayBolsaFamilia.add((i + 1), objetoIndice);
-                    arrayBolsaFamilia.add(i, objetoIndiceMais1);
-                }
+                if (objetoIndice.getCodigoMunicipio() > objetoIndiceMais1.getCodigoMunicipio())
+                    Troca.troca(arrayBolsaFamilia, objetoIndice, objetoIndiceMais1, i);
             }
         }
         return arrayBolsaFamilia;
@@ -80,18 +60,11 @@ public class BubbleSort {
     public static ArrayList bubbleSortNisFavorecido(ArrayList<BolsaFamilia> arrayBolsaFamilia) {
         for (int j = arrayBolsaFamilia.size() - 1; j > 1; j--) {
             for (int i = 0; i < j; i++) {
-                BolsaFamilia obj1 = arrayBolsaFamilia.get(i);
-                BolsaFamilia obj2 = arrayBolsaFamilia.get((i + 1));
+                BolsaFamilia objetoIndice = arrayBolsaFamilia.get(i);
+                BolsaFamilia objetoIndiceMais1 = arrayBolsaFamilia.get((i + 1));
                 // Testando os itens
-                if (obj1.getNisFavorecido() > obj2.getNisFavorecido()) {
-                    BolsaFamilia objetoIndice = arrayBolsaFamilia.get(i);
-                    BolsaFamilia objetoIndiceMais1 = arrayBolsaFamilia.get((i + 1));
-                    // Testando a gambiarra
-                    arrayBolsaFamilia.remove(objetoIndiceMais1);
-                    arrayBolsaFamilia.remove(objetoIndice);
-                    arrayBolsaFamilia.add((i + 1), objetoIndice);
-                    arrayBolsaFamilia.add(i, objetoIndiceMais1);
-                }
+                if (objetoIndice.getNisFavorecido() > objetoIndiceMais1.getNisFavorecido())
+                    Troca.troca(arrayBolsaFamilia, objetoIndice, objetoIndiceMais1, i);
             }
         }
         return arrayBolsaFamilia;
@@ -101,18 +74,11 @@ public class BubbleSort {
     public static ArrayList bubbleSortNomeMunicipio(ArrayList<BolsaFamilia> arrayBolsaFamilia) {
         for (int j = arrayBolsaFamilia.size() - 1; j > 1; j--) {
             for (int i = 0; i < j; i++) {
-                BolsaFamilia obj1 = arrayBolsaFamilia.get(i);
-                BolsaFamilia obj2 = arrayBolsaFamilia.get((i + 1));
+                BolsaFamilia objetoIndice = arrayBolsaFamilia.get(i);
+                BolsaFamilia objetoIndiceMais1 = arrayBolsaFamilia.get((i + 1));
                 // Testando os itens
-                if (obj1.getNomeMunicipio().compareTo(obj2.getNomeMunicipio()) > 0) {
-                    BolsaFamilia objetoIndice = arrayBolsaFamilia.get(i);
-                    BolsaFamilia objetoIndiceMais1 = arrayBolsaFamilia.get((i + 1));
-                    // Testando a gambiarra
-                    arrayBolsaFamilia.remove(objetoIndiceMais1);
-                    arrayBolsaFamilia.remove(objetoIndice);
-                    arrayBolsaFamilia.add((i + 1), objetoIndice);
-                    arrayBolsaFamilia.add(i, objetoIndiceMais1);
-                }
+                if (objetoIndice.getNomeMunicipio().compareTo(objetoIndiceMais1.getNomeMunicipio()) > 0)
+                    Troca.troca(arrayBolsaFamilia, objetoIndice, objetoIndiceMais1, i);
             }
         }
         return arrayBolsaFamilia;
@@ -121,21 +87,13 @@ public class BubbleSort {
     public static ArrayList bubbleSortValorParcela(ArrayList<BolsaFamilia> arrayBolsaFamilia) {
         for (int j = arrayBolsaFamilia.size() - 1; j > 1; j--) {
             for (int i = 0; i < j; i++) {
-                BolsaFamilia obj1 = arrayBolsaFamilia.get(i);
-                BolsaFamilia obj2 = arrayBolsaFamilia.get((i + 1));
-                // Testando os itens
-                if (obj1.getValorParcela()> obj2.getValorParcela()) {
                     BolsaFamilia objetoIndice = arrayBolsaFamilia.get(i);
                     BolsaFamilia objetoIndiceMais1 = arrayBolsaFamilia.get((i + 1));
-                    // Testando a gambiarra
-                    arrayBolsaFamilia.remove(objetoIndiceMais1);
-                    arrayBolsaFamilia.remove(objetoIndice);
-                    arrayBolsaFamilia.add((i + 1), objetoIndice);
-                    arrayBolsaFamilia.add(i, objetoIndiceMais1);
-                }
+                // Testando os itens
+                if (objetoIndice.getValorParcela() > objetoIndiceMais1.getValorParcela())
+                    Troca.troca(arrayBolsaFamilia, objetoIndice, objetoIndiceMais1, i);
             }
         }
         return arrayBolsaFamilia;
-    }
-    
+    }   
 }
