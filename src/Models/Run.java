@@ -10,6 +10,7 @@ import Algoritmos.InsertionSort;
 import Algoritmos.SelectionSort;
 import Algoritmos.ShellSort;
 import GerenciadorArquivos.Arquivo;
+import Views.ViewInicio;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -42,7 +43,9 @@ public class Run {
 
             infoBolsa.add(info);
         }
-
+        
+        runProjeto();
+    
 // ==================================================================================================
         // BUBBLESORT ========== PRONTO
         ArrayList<BolsaFamilia> arrayOrdenado = new ArrayList<>();
@@ -81,4 +84,9 @@ public class Run {
         // Gravando o arrayOrdenado
 //        classeLer.escreverArquivoOrganizado("shellSort/ordenadoPorValorParcela", arrayShell);
     }
+    
+    public static void runProjeto(){
+        ViewInicio iniciar = new ViewInicio();
+        iniciar.show();
+    }  
 }
