@@ -62,7 +62,7 @@ public class Arquivo {
                 escritor.print(arrayInfoBolsa.get(i).getNomeMunicipio()+",");
                 escritor.print(arrayInfoBolsa.get(i).getNisFavorecido()+",");
                 escritor.print(arrayInfoBolsa.get(i).getNomeFavorecido()+",");
-                escritor.println(arrayInfoBolsa.get(i).getValorParcela());
+                escritor.println(arrayInfoBolsa.get(i).getValorParcela()+"\n");
                 registro++;
             }
             
