@@ -11,8 +11,8 @@ import Algoritmos.MergeSort;
 import Algoritmos.QuickSort;
 import Algoritmos.SelectionSort;
 import Algoritmos.ShellSort;
+import Algoritmos.HeapSort;
 import GerenciadorArquivos.Arquivo;
-import Views.ViewInicio;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -45,9 +45,7 @@ public class Run {
 
             infoBolsa.add(info);
         }
-        
-        runProjeto();
-    
+
 // ==================================================================================================
         // BUBBLESORT ========== PRONTO
        // ArrayList<BolsaFamilia> arrayOrdenado = new ArrayList<>();
@@ -98,15 +96,14 @@ public class Run {
 //        classeLer.escreverArquivoOrganizado("QuickSort/ordenadoPorIDM", infoBolsa);
         
 //======================================================================================================
+   
+ //      MergeSort.MergeSortOrdenadoPorCodigoMunicipio(infoBolsa, 0, infoBolsa.size()-1);
+ //      classeLer.escreverArquivoOrganizado("MergeSort/ordenadoPorID", infoBolsa);
+       
+ //====================================================================================================== 
     
-        ArrayList<BolsaFamilia> Temp = new ArrayList<>();
-       MergeSort.MergeSortOrdenadoPorID(infoBolsa, Temp, 0, infoBolsa.size()-1);
-       classeLer.escreverArquivoOrganizado("MergeSort/ordenadoPorID", infoBolsa);
-        
+        HeapSort.HeapSortOrdenadoPorCodigoMunicipio(infoBolsa);
+        classeLer.escreverArquivoOrganizado("HeapSort/ordenadoPorID", infoBolsa);
+ 
     }
-    
-    public static void runProjeto(){
-        ViewInicio iniciar = new ViewInicio();
-        iniciar.show();
-    }  
 }

@@ -15,39 +15,46 @@ import java.util.ArrayList;
  */
 public class MergeSort {
     
-    public static void MergeSortOrdenadoPorID(ArrayList<BolsaFamilia> array, ArrayList<BolsaFamilia> temp, int inicio, int fim){
+    public static void MergeSortOrdenadoPorCodigoMunicipio(ArrayList<BolsaFamilia> array, int inicio, int fim){
         
         if(inicio < fim)
         {
             int meio = (inicio + fim / 2);
-            MergeSortOrdenadoPorID(array,temp,inicio,meio);
-            MergeSortOrdenadoPorID(array,temp,meio + 1, fim);
-            intercalar(array, temp, inicio, meio, fim);
+            MergeSortOrdenadoPorCodigoMunicipio(array,inicio,meio);
+            MergeSortOrdenadoPorCodigoMunicipio(array, meio + 1, fim);
+            intercalar(array, inicio, meio, fim);
         }
         
     }
 
-    private static void intercalar(ArrayList<BolsaFamilia> array, ArrayList<BolsaFamilia> temp, int inicio, int meio, int fim){
+    private static void intercalar(ArrayList<BolsaFamilia> array, int inicio, int meio, int fim){
+        //p inicio
+        //r final
+        ArrayList<BolsaFamilia> temp = new ArrayList();
+        int a = inicio;
+        int b = meio+1;
+        int h = 0;
         
-        for(int i = inicio; i<=fim; i++){
-           temp.add(array.get(i)); 
-        }
-        int j = inicio;
-        int k = meio = 1;
-        
-        for(int i = inicio; i <= fim; i++)
+        while(a <= meio &&  b <= fim)
         {
-            if(i > meio)
-                array.set(k,temp.get(j++));
-            else
-                if(j > fim)
-                    array.set(k,temp.get(i++));
-                else 
-                    if(temp.get(i).getId() < temp.get(j).getId())
-                        array.set(i,temp.get(i++));
-                    else
-                        array.set(i,temp.get(j++));
+            if(array.get(a).getCodigoMunicipio() < array.get(b).getCodigoMunicipio())
+            {
+                temp.set(h++, array.get(a++));
+            }else{
+                temp.set(h++, array.get(b++));
+            }
+        }
+        while(a <= meio)
+        { 
+            temp.set(h++,array.get(a++));
+        }
+        while(b <= fim)
+        {
+            temp.set(h++,array.get(b++));
+        }
+        for(h = 0; h < temp.size(); h++)
+        {
+            array.set(inicio++, temp.get(h));
         }
     }
     
-}
