@@ -45,10 +45,10 @@ public class Run {
 
 // ==================================================================================================
         // BUBBLESORT ========== PRONTO
-//        ArrayList<BolsaFamilia> arrayOrdenado = new ArrayList<>();
-//        arrayOrdenado = BubbleSort.bubbleSortIdMunicipio(infoBolsa);
+        ArrayList<BolsaFamilia> arrayOrdenado = new ArrayList<>();
+        arrayOrdenado = BubbleSort.bubbleSortIdMunicipio(infoBolsa);
         // Gravando o arrayOrdenado
-//        classeLer.escreverArquivoOrganizado("bubbleSort/ordenadoPorIdCid", arrayOrdenado);
+        classeLer.escreverArquivoOrganizado("bubbleSort/ordenadoPorIdCid", arrayOrdenado);
         
 
 // ==================================================================================================
