@@ -5,21 +5,130 @@
  */
 package Algoritmos;
 
+import Models.BolsaFamilia;
+import java.util.ArrayList;
+
 /**
  *
  * @author Gabriel
  */
 public class InsertionSort {
-
-    public static void insertionSort(int[] vetorInteiro) {
-        int j, key, i;
-
-        for (j=1; j<vetorInteiro.length; j++) {
-            key = vetorInteiro[j];
-            for (i=j-1; (i>=0) && (vetorInteiro[i]>key); i--) {
-                vetorInteiro[i+1] = vetorInteiro[i];
+    // Ordenando por Id da linha
+    public static ArrayList insertionSortId(ArrayList<BolsaFamilia> array) {
+        int in, out;
+        
+        for(out=1; out<array.size(); out++){
+            BolsaFamilia temp = array.get(out);
+            in = out;
+            
+            while(in>0 && array.get(in-1).getId() >= temp.getId()){
+                array.set(in, array.get(in-1));
+                --in;
             }
-            vetorInteiro[i+1] = key;
+            array.set(in, temp);
         }
+        return array;
+    }
+    
+    // Ordenando por UF
+    public static ArrayList insertionSortUfEstado(ArrayList<BolsaFamilia> array) {
+        int in, out;
+        
+        for(out=1; out<array.size(); out++){
+            BolsaFamilia temp = array.get(out);
+            in = out;
+            
+            while(in>0 && array.get(in-1).getUfEstado().compareTo(temp.getUfEstado())>= 0){
+                array.set(in, array.get(in-1));
+                --in;
+            }
+            array.set(in, temp);
+        }
+        return array;
+    }
+    
+    // Ordenando por codigo municipio
+    public static ArrayList insertionSortIdMunicipio(ArrayList<BolsaFamilia> array) {
+        int in, out;
+        
+        for(out=1; out<array.size(); out++){
+            BolsaFamilia temp = array.get(out);
+            in = out;
+            
+            while(in>0 && array.get(in-1).getCodigoMunicipio()>= temp.getCodigoMunicipio()){
+                array.set(in, array.get(in-1));
+                --in;
+            }
+            array.set(in, temp);
+        }
+        return array;
+    }
+    
+    // Ordenando por Nis favorecido
+    public static ArrayList insertionSortNisFavorecido(ArrayList<BolsaFamilia> array) {
+        int in, out;
+        
+        for(out=1; out<array.size(); out++){
+            BolsaFamilia temp = array.get(out);
+            in = out;
+            
+            while(in>0 && array.get(in-1).getNisFavorecido()>= temp.getNisFavorecido()){
+                array.set(in, array.get(in-1));
+                --in;
+            }
+            array.set(in, temp);
+        }
+        return array;
+    }
+    
+    // Ordenando por nome cidade
+    public static ArrayList insertionSortNomeMunicipio(ArrayList<BolsaFamilia> array) {
+        int in, out;
+        
+        for(out=1; out<array.size(); out++){
+            BolsaFamilia temp = array.get(out);
+            in = out;
+            
+            while(in>0 && array.get(in-1).getNomeMunicipio().compareTo(temp.getNomeMunicipio())>= 0){
+                array.set(in, array.get(in-1));
+                --in;
+            }
+            array.set(in, temp);
+        }
+        return array;
+    }
+    
+    // Ordenando por nome da pessoa
+    public static ArrayList insertionSortNomeFavorecido(ArrayList<BolsaFamilia> array) {
+        int in, out;
+        
+        for(out=1; out<array.size(); out++){
+            BolsaFamilia temp = array.get(out);
+            in = out;
+            
+            while(in>0 && array.get(in-1).getNomeFavorecido().compareTo(temp.getNomeFavorecido())>= 0){
+                array.set(in, array.get(in-1));
+                --in;
+            }
+            array.set(in, temp);
+        }
+        return array;
+    }
+    
+    // Ordenando por valor da parcela
+    public static ArrayList insertionSortValorParcela(ArrayList<BolsaFamilia> array) {
+        int in, out;
+        
+        for(out=1; out<array.size(); out++){
+            BolsaFamilia temp = array.get(out);
+            in = out;
+            
+            while(in>0 && array.get(in-1).getValorParcela()>= temp.getValorParcela()){
+                array.set(in, array.get(in-1));
+                --in;
+            }
+            array.set(in, temp);
+        }
+        return array;
     }
 }

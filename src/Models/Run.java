@@ -6,6 +6,9 @@
 package Models;
 
 import Algoritmos.BubbleSort;
+import Algoritmos.InsertionSort;
+import Algoritmos.SelectionSort;
+import Algoritmos.ShellSort;
 import GerenciadorArquivos.Arquivo;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -28,21 +31,54 @@ public class Run {
         // Lendo o arquivo
         ArrayList leitura = classeLer.lerArquivo(arquivo);
 
+        // ArrayList que será preenchido e organizado.
         for (int i = 0; i < leitura.size(); i++) {
             String linha = leitura.get(i).toString();
             String[] campoConvertido = linha.split(",");
 
-//             Criando o objeto e adicionando ao arrayList do tipo BolsaFamilia
+            // Criando o objeto e adicionando ao arrayList do tipo BolsaFamilia
             BolsaFamilia info = new BolsaFamilia(i, campoConvertido[1], Integer.parseInt(campoConvertido[2]), campoConvertido[3],
                     Long.parseLong(campoConvertido[4]), campoConvertido[5], Float.parseFloat(campoConvertido[6]));
 
             infoBolsa.add(info);
         }
-//        classeLer.escreverArquivoOrganizado("2", infoBolsa);
-        // Parte da gambiarra
-        ArrayList<BolsaFamilia> teste = new ArrayList<>();
-        teste = BubbleSort.bubbleSortId(infoBolsa);
-        // Gravando a gambiarra
-        classeLer.escreverArquivoOrganizado("ordenadoPorId", teste);
+
+// ==================================================================================================
+        // BUBBLESORT ========== PRONTO
+//        ArrayList<BolsaFamilia> arrayOrdenado = new ArrayList<>();
+//        arrayOrdenado = BubbleSort.bubbleSortIdMunicipio(infoBolsa);
+        // Gravando o arrayOrdenado
+//        classeLer.escreverArquivoOrganizado("bubbleSort/ordenadoPorIdCid", arrayOrdenado);
+        
+
+// ==================================================================================================
+        // INSERTION =========== PRONTO
+//        ArrayList<BolsaFamilia> arrayInsertion = new ArrayList<>();
+//        arrayInsertion = InsertionSort.insertionSortValorParcela(infoBolsa);
+        // Gravando o arrayOrdenado
+//        classeLer.escreverArquivoOrganizado("insertionSort/ordenadoPorValorParcela", arrayInsertion);
+
+
+// ==================================================================================================
+//        ArrayList<BolsaFamilia> arraySelection = new ArrayList<>();
+//        arraySelection = SelectionSort.selectionSortId(infoBolsa);
+//        // Gravando o arrayOrdenado
+//        classeLer.escreverArquivoOrganizado("selectionSort/ordenadoPorID", arraySelection);
+
+
+// ==================================================================================================
+        // SHELLSORT =========== PRONTO
+//        ArrayList<BolsaFamilia> arrayShell = new ArrayList<>();
+//        arrayShell = ShellSort.shellsortValorParcela(infoBolsa);
+        // Gravando o arrayOrdenado
+//        classeLer.escreverArquivoOrganizado("shellSort/ordenadoPorValorParcela", arrayShell);
+
+
+// ==================================================================================================
+        // SHELLSORT =========== PRONTO
+//        ArrayList<BolsaFamilia> arrayShell = new ArrayList<>();
+//        arrayShell = ShellSort.shellsortValorParcela(infoBolsa);
+        // Gravando o arrayOrdenado
+//        classeLer.escreverArquivoOrganizado("shellSort/ordenadoPorValorParcela", arrayShell);
     }
 }
