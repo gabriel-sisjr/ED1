@@ -5,17 +5,30 @@
  */
 package Views;
 
+import GerenciadorArquivos.Arquivo;
+import Models.BolsaFamilia;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Itatechjr
  */
 public class ViewAlgoritimos extends javax.swing.JFrame {
 
-    /**
-     * Creates new form ViewAlgoritimos
-     */
+    private DefaultTableModel tbd;
     public ViewAlgoritimos() {
+        
         initComponents();
+        tbd = ((DefaultTableModel) tbDados.getModel());
+        ((DefaultTableModel) tbDados.getModel()).setRowCount(0);
+        
+        
     }
 
     /**
@@ -33,14 +46,15 @@ public class ViewAlgoritimos extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        cbTipoOrdenacao = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tbDados = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(600, 800));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BubbleSort", "SelectionSort", "ShellSort", "HeapSort", "MergeSort", "QuickSort" }));
 
         jButton1.setText("Ordenar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -75,34 +89,40 @@ public class ViewAlgoritimos extends javax.swing.JFrame {
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
+        cbTipoOrdenacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ordenar por ID", "Ordenar por UF", "Ordenar por NIS", "Ordenar por cidade", "Ordenar por benefício", "Ordenar por nome", "Ordenar por valodr do benefício" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(50, 50, 50)
-                        .addComponent(jButton1))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 31, Short.MAX_VALUE))
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cbTipoOrdenacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbTipoOrdenacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jLabel2.setText("Selecione um método");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tbDados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null},
                 {null, null, null, null, null, null, null},
@@ -113,7 +133,7 @@ public class ViewAlgoritimos extends javax.swing.JFrame {
                 "ID", "UF", "Nº NIS", "Cidade", "Nº Ben.", "Nome", "Valor Ben."
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tbDados);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,14 +156,100 @@ public class ViewAlgoritimos extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(270, Short.MAX_VALUE))
+                .addContainerGap(271, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        
+        String nomeMetodo = (String) jComboBox1.getSelectedItem();
+        System.out.print(nomeMetodo);
+        
+        String tipo = (String) cbTipoOrdenacao.getSelectedItem();
+        System.out.print(tipo);
+        
+        File arquivo = new File("dados.txt");
+        Arquivo classeLer = new Arquivo();
+
+        // Itens bolsa familia
+        ArrayList<BolsaFamilia> infoBolsa = new ArrayList<>();
+        // Lendo o arquivo
+        ArrayList leitura = null;
+        try {
+            leitura = classeLer.lerArquivo(arquivo);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // ArrayList que será preenchido e organizado.
+        for (int i = 0; i < leitura.size(); i++) {
+            String linha = leitura.get(i).toString();
+            String[] campoConvertido = linha.split(",");
+
+            // Criando o objeto e adicionando ao arrayList do tipo BolsaFamilia
+            BolsaFamilia info = new BolsaFamilia(i, campoConvertido[1], Integer.parseInt(campoConvertido[2]), campoConvertido[3],
+                    Long.parseLong(campoConvertido[4]), campoConvertido[5], Float.parseFloat(campoConvertido[6]));
+
+            infoBolsa.add(info);
+        }
+        
+        
+        switch(nomeMetodo){
+            
+            case "BubbleSort":
+                
+                break;
+                
+            case "SelectionSort":
+                
+                break;
+                
+            case "InsertSort":
+                
+                break;
+                
+            case "Shellsort":
+                
+                break;
+                
+            case "HeapSort":
+                
+                break;
+                
+            case "MergeSort":
+                
+                break;
+                
+            case "QuickSort":
+                
+                break;
+                    
+                
+                    
+                   
+            
+        }
+        if(nomeMetodo == "BubbleSort"){
+           
+            ArrayList<BolsaFamilia> arrayOrdenado = new ArrayList<>();
+            arrayOrdenado = Algoritmos.BubbleSort.bubbleSortUfEstado(infoBolsa);
+            try {
+                classeLer.escreverArquivoOrganizado("bubbleSort/ordenadoPorUfEstado", arrayOrdenado);
+                tbd.getDataVector().clear();// limpa a tabela
+                
+             
+                    for (BolsaFamilia dado : infoBolsa) {// aki ele percorre minha list
+                        tbd.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(),dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});// adiciona na jtbale
+                }
+            } catch (IOException ex) {
+                Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            System.out.print("fodasse");
+            
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -182,6 +288,7 @@ public class ViewAlgoritimos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbTipoOrdenacao;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
@@ -190,6 +297,9 @@ public class ViewAlgoritimos extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tbDados;
     // End of variables declaration//GEN-END:variables
+
+    
+
 }
