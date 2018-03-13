@@ -29,16 +29,16 @@ public class Arquivo {
             FileReader leitor = new FileReader(file);
             BufferedReader entrada = new BufferedReader(leitor);
             
-            int registro=0;
+//            int registro=0;
             
             String linhaLida;
             // Laço para retirar os caracteres
             while(entrada.ready()){
                     arrayString.add(entrada.readLine());
-                    registro++;
+//                    registro++;
             }
             
-            System.out.println("O arquivo contem "+ registro + " registros.");
+//            System.out.println("O arquivo contem "+ registro + " registros.");
             leitor.close();
             entrada.close();
         }catch(IOException ex){
@@ -54,7 +54,7 @@ public class Arquivo {
             FileWriter gravador = new FileWriter(arquivo);
             PrintWriter escritor = new PrintWriter(gravador);
             
-            int registro=0;
+//            int registro=0;
             for(int i=0; i<arrayInfoBolsa.size(); i++){
                 escritor.print(arrayInfoBolsa.get(i).getId()+",");
                 escritor.print(arrayInfoBolsa.get(i).getUfEstado()+",");
@@ -62,11 +62,11 @@ public class Arquivo {
                 escritor.print(arrayInfoBolsa.get(i).getNomeMunicipio()+",");
                 escritor.print(arrayInfoBolsa.get(i).getNisFavorecido()+",");
                 escritor.print(arrayInfoBolsa.get(i).getNomeFavorecido()+",");
-                escritor.println(arrayInfoBolsa.get(i).getValorParcela()+"\n");
-                registro++;
+                escritor.println(arrayInfoBolsa.get(i).getValorParcela()+"");
+//                registro++;
             }
             
-            System.out.println("Inseriu no arquivo "+ registro + " registros. -> Metodo inserir organizado");
+//            System.out.println("Inseriu no arquivo "+ registro + " registros. -> Metodo inserir organizado");
             // Fechando os streams
             escritor.close();
             gravador.close();

@@ -7,12 +7,14 @@ package Views;
 
 import GerenciadorArquivos.Arquivo;
 import Models.BolsaFamilia;
+import Models.Ordenacao;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,14 +23,21 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ViewAlgoritimos extends javax.swing.JFrame {
 
-    private DefaultTableModel tbd;
+    private DefaultTableModel jTable1;
+    private static ArrayList<BolsaFamilia> arrayOrdenado = new ArrayList<>();
+    public static ArrayList<Ordenacao> arrayInformacoes = new ArrayList<>();
+    
+    private double tempoInicial =0;
+    private double tempoFinal =0;
+    
     public ViewAlgoritimos() {
-        
         initComponents();
-        tbd = ((DefaultTableModel) tbDados.getModel());
-        ((DefaultTableModel) tbDados.getModel()).setRowCount(0);
-        
-        
+        this.setResizable(false);
+        this.setTitle("Algoritmos de Ordenação");
+        // iniciando a tela ja maximizada.
+//        this.setExtendedState(MAXIMIZED_BOTH);
+        jTable1 = ((DefaultTableModel) tbDados.getModel());
+//        arrayInformacoes 
     }
 
     /**
@@ -40,145 +49,180 @@ public class ViewAlgoritimos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        btnOrdenar = new javax.swing.JButton();
         cbTipoOrdenacao = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabelSeg = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabelComp = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabelTrocas = new javax.swing.JLabel();
+        btnSalvarOrdenacao = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbDados = new javax.swing.JTable();
 
+        jLabel5.setText("jLabel5");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(600, 800));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BubbleSort", "SelectionSort", "ShellSort", "HeapSort", "MergeSort", "QuickSort" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BubbleSort", "SelectionSort", "InsertionSort", "ShellSort", "HeapSort", "MergeSort", "QuickSort" }));
 
-        jButton1.setText("Ordenar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnOrdenar.setText("Ordenar");
+        btnOrdenar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnOrdenarActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("jLabel1");
+        cbTipoOrdenacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ordenar por ID", "Ordenar por UF", "Ordenar por NIS", "Ordenar por Cidade", "Ordenar por ID Cidade", "Ordenar por Nome", "Ordenar por valor do benefício" }));
 
-        jLabel3.setText("Método selecionado");
+        jLabel1.setText("Tempo:");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jLabel3)
-                .addGap(0, 92, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
+        jLabel4.setText("seg");
 
-        cbTipoOrdenacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ordenar por ID", "Ordenar por UF", "Ordenar por NIS", "Ordenar por cidade", "Ordenar por benefício", "Ordenar por nome", "Ordenar por valodr do benefício" }));
+        jLabel3.setText("Comparações:");
+
+        jLabel6.setText("Trocas:");
+
+        btnSalvarOrdenacao.setText("Salvar Ordenação");
+        btnSalvarOrdenacao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarOrdenacaoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(cbTipoOrdenacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
+                .addGap(18, 18, 18)
+                .addComponent(btnOrdenar)
+                .addGap(31, 31, 31)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelSeg, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelTrocas, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelComp, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(93, 93, 93)
+                .addComponent(btnSalvarOrdenacao)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbTipoOrdenacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabelTrocas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbTipoOrdenacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnOrdenar)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabelSeg, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabelComp, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnSalvarOrdenacao))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jLabel2.setText("Selecione um método");
 
         tbDados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+
             },
             new String [] {
-                "ID", "UF", "Nº NIS", "Cidade", "Nº Ben.", "Nome", "Valor Ben."
+                "ID", "UF", "Nº NIS", "Cidade", "Codigo Cidade", "Nome", "Valor Ben."
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, true, true, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tbDados);
+        if (tbDados.getColumnModel().getColumnCount() > 0) {
+            tbDados.getColumnModel().getColumn(0).setMinWidth(55);
+            tbDados.getColumnModel().getColumn(0).setMaxWidth(85);
+            tbDados.getColumnModel().getColumn(1).setMinWidth(55);
+            tbDados.getColumnModel().getColumn(1).setMaxWidth(85);
+            tbDados.getColumnModel().getColumn(2).setMinWidth(120);
+            tbDados.getColumnModel().getColumn(2).setMaxWidth(160);
+            tbDados.getColumnModel().getColumn(3).setMinWidth(180);
+            tbDados.getColumnModel().getColumn(3).setMaxWidth(220);
+            tbDados.getColumnModel().getColumn(4).setMinWidth(100);
+            tbDados.getColumnModel().getColumn(4).setMaxWidth(120);
+            tbDados.getColumnModel().getColumn(6).setMinWidth(90);
+            tbDados.getColumnModel().getColumn(6).setMaxWidth(115);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(133, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1177, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(271, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(40, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+    private void btnOrdenarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOrdenarActionPerformed
+     
+        // Pegando as informações selecionadas no comboBox.
         String nomeMetodo = (String) jComboBox1.getSelectedItem();
-        System.out.print(nomeMetodo);
-        
         String tipo = (String) cbTipoOrdenacao.getSelectedItem();
-        System.out.print(tipo);
         
         File arquivo = new File("dados.txt");
-        Arquivo classeLer = new Arquivo();
+        Arquivo gerenciadorArquivos = new Arquivo();
 
         // Itens bolsa familia
         ArrayList<BolsaFamilia> infoBolsa = new ArrayList<>();
         // Lendo o arquivo
         ArrayList leitura = null;
         try {
-            leitura = classeLer.lerArquivo(arquivo);
+            leitura = gerenciadorArquivos.lerArquivo(arquivo);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -189,69 +233,1456 @@ public class ViewAlgoritimos extends javax.swing.JFrame {
             String[] campoConvertido = linha.split(",");
 
             // Criando o objeto e adicionando ao arrayList do tipo BolsaFamilia
-            BolsaFamilia info = new BolsaFamilia(i, campoConvertido[1], Integer.parseInt(campoConvertido[2]), campoConvertido[3],
+            BolsaFamilia info = new BolsaFamilia(Long.parseLong(campoConvertido[0]), campoConvertido[1], Integer.parseInt(campoConvertido[2]), campoConvertido[3],
                     Long.parseLong(campoConvertido[4]), campoConvertido[5], Float.parseFloat(campoConvertido[6]));
 
             infoBolsa.add(info);
         }
         
-        
         switch(nomeMetodo){
-            
             case "BubbleSort":
-                
+                switch(tipo){
+                    case "Ordenar por ID":
+                        Algoritmos.BubbleSort.resetaTroca();
+                        Algoritmos.BubbleSort.resetaComparacao();
+                        // Pegando o tempo atual antes de ordenar
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.BubbleSort.bubbleSortId(infoBolsa);
+                        // Tempo depois de ordenar
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de comparações.
+                        jLabelComp.setText(Long.toString(Algoritmos.BubbleSort.getComparacao()));
+                        
+                        
+                        jTable1.getDataVector().clear();// limpa a tabela
+                        for (BolsaFamilia dado : arrayOrdenado) {// aki ele percorre minha list
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(),
+                                dado.getNomeMunicipio(),dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});// adiciona na jtbale
+                        }
+                    break;
+                    
+                    case "Ordenar por UF":
+                        Algoritmos.BubbleSort.resetaTroca();
+                        Algoritmos.BubbleSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.BubbleSort.bubbleSortUfEstado(infoBolsa);
+                        // Tempo depois de ordenar
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de comparações.
+                        jLabelComp.setText(Long.toString(Algoritmos.BubbleSort.getComparacao()));
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), 
+                                dado.getNomeMunicipio(),dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por NIS":
+                        Algoritmos.BubbleSort.resetaTroca();
+                        Algoritmos.BubbleSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.BubbleSort.bubbleSortNisFavorecido(infoBolsa);
+                        // Tempo depois de ordenar
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+//                        Algoritmos.BubbleSort.resetaTroca();
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de comparações.
+                        jLabelComp.setText(Long.toString(Algoritmos.BubbleSort.getComparacao()));
+//                        Algoritmos.BubbleSort.resetaComparacao();
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(),
+                                dado.getNomeMunicipio(),dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por Cidade":
+                        Algoritmos.BubbleSort.resetaTroca();
+                        Algoritmos.BubbleSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.BubbleSort.bubbleSortNomeMunicipio(infoBolsa);
+                        // Tempo depois de ordenar
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        Algoritmos.BubbleSort.resetaTroca();
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de comparações.
+                        jLabelComp.setText(Long.toString(Algoritmos.BubbleSort.getComparacao()));
+                        Algoritmos.BubbleSort.resetaComparacao();
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(),dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por ID Cidade":
+                        Algoritmos.BubbleSort.resetaTroca();
+                        Algoritmos.BubbleSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.BubbleSort.bubbleSortIdMunicipio(infoBolsa);
+                        // Tempo depois de ordenar
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        Algoritmos.BubbleSort.resetaTroca();
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de comparações.
+                        jLabelComp.setText(Long.toString(Algoritmos.BubbleSort.getComparacao()));
+                        Algoritmos.BubbleSort.resetaComparacao();
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(),
+                                dado.getNomeMunicipio(),dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por Nome":
+                        Algoritmos.BubbleSort.resetaTroca();
+                        Algoritmos.BubbleSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.BubbleSort.bubbleSortNomeFavorecido(infoBolsa);
+                        // Tempo depois de ordenar
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        Algoritmos.BubbleSort.resetaTroca();
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de comparações.
+                        jLabelComp.setText(Long.toString(Algoritmos.BubbleSort.getComparacao()));
+                        Algoritmos.BubbleSort.resetaComparacao();
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(),
+                                dado.getNomeMunicipio(),dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por valor do benefício":
+                        Algoritmos.BubbleSort.resetaTroca();
+                        Algoritmos.BubbleSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.BubbleSort.bubbleSortValorParcela(infoBolsa);
+                        // Tempo depois de ordenar
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        Algoritmos.BubbleSort.resetaTroca();
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de comparações.
+                        jLabelComp.setText(Long.toString(Algoritmos.BubbleSort.getComparacao()));
+                        Algoritmos.BubbleSort.resetaComparacao();
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(),
+                                dado.getNomeMunicipio(),dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                }
                 break;
                 
             case "SelectionSort":
+                 switch(tipo){
+                    case "Ordenar por ID":
+                        Algoritmos.SelectionSort.resetaTroca();
+                        Algoritmos.SelectionSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.SelectionSort.selectionSortId(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.SelectionSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.SelectionSort.getComparacao()));
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por UF":
+                        Algoritmos.SelectionSort.resetaTroca();
+                        Algoritmos.SelectionSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.SelectionSort.selectionSortUfEstado(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.SelectionSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.SelectionSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por NIS":
+                        Algoritmos.SelectionSort.resetaTroca();
+                        Algoritmos.SelectionSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.SelectionSort.selectionSortNisFavorecido(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.SelectionSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.SelectionSort.getComparacao()));
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por Cidade":
+                        Algoritmos.SelectionSort.resetaTroca();
+                        Algoritmos.SelectionSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.SelectionSort.selectionSortNomeMunicipio(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.SelectionSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.SelectionSort.getComparacao()));
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por ID Cidade":
+                        Algoritmos.SelectionSort.resetaTroca();
+                        Algoritmos.SelectionSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.SelectionSort.selectionSortCodigoMunicipio(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.SelectionSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.SelectionSort.getComparacao()));
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por Nome":
+                        Algoritmos.SelectionSort.resetaTroca();
+                        Algoritmos.SelectionSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.SelectionSort.selectionSortNomeMunicipio(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.SelectionSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.SelectionSort.getComparacao()));
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por valor do benefício":
+                        Algoritmos.SelectionSort.resetaTroca();
+                        Algoritmos.SelectionSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.SelectionSort.selectionSortValorBeneficio(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.SelectionSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.SelectionSort.getComparacao()));
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                 }
+            break;
                 
-                break;
+            case "InsertionSort":
+                 switch(tipo){
+                    case "Ordenar por ID":
+                        Algoritmos.InsertionSort.resetaTroca();
+                        Algoritmos.InsertionSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.InsertionSort.insertionSortId(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.InsertionSort.getComparacao()));
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por UF":
+                        Algoritmos.InsertionSort.resetaTroca();
+                        Algoritmos.InsertionSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.InsertionSort.insertionSortUfEstado(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.InsertionSort.getComparacao()));
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por NIS":
+                        Algoritmos.InsertionSort.resetaTroca();
+                        Algoritmos.InsertionSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.InsertionSort.insertionSortNisFavorecido(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.InsertionSort.getComparacao()));
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por Cidade":
+                        Algoritmos.InsertionSort.resetaTroca();
+                        Algoritmos.InsertionSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.InsertionSort.insertionSortNomeMunicipio(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.InsertionSort.getComparacao()));
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por ID Cidade":
+                        Algoritmos.InsertionSort.resetaTroca();
+                        Algoritmos.InsertionSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.InsertionSort.insertionSortIdMunicipio(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.InsertionSort.getComparacao()));
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por Nome":
+                        Algoritmos.InsertionSort.resetaTroca();
+                        Algoritmos.InsertionSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.InsertionSort.insertionSortNomeFavorecido(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.InsertionSort.getComparacao()));
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por valor do benefício":
+                        Algoritmos.InsertionSort.resetaTroca();
+                        Algoritmos.InsertionSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.InsertionSort.insertionSortValorParcela(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.InsertionSort.getComparacao()));
+                        
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                }
+            break;
                 
-            case "InsertSort":
-                
-                break;
-                
-            case "Shellsort":
-                
+            case "ShellSort":
+                switch(tipo){
+                    case "Ordenar por ID":
+                        Algoritmos.ShellSort.resetaTroca();
+                        Algoritmos.ShellSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.ShellSort.shellsortId(infoBolsa);
+                        // Tempo depois de ordenar
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.ShellSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por UF":
+                        Algoritmos.ShellSort.resetaTroca();
+                        Algoritmos.ShellSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.ShellSort.shellsortUfEstado(infoBolsa);
+                        // Tempo depois de ordenar
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.ShellSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por NIS":
+                        Algoritmos.ShellSort.resetaTroca();
+                        Algoritmos.ShellSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.ShellSort.shellsortNisFavorecido(infoBolsa);
+                        // Tempo depois de ordenar
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.ShellSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por Cidade":
+                        Algoritmos.ShellSort.resetaTroca();
+                        Algoritmos.ShellSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.ShellSort.shellsortNomeMunicipio(infoBolsa);
+                        // Tempo depois de ordenar
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.ShellSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por ID Cidade":
+                        Algoritmos.ShellSort.resetaTroca();
+                        Algoritmos.ShellSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.ShellSort.shellsortIdMunicipio(infoBolsa);
+                        // Tempo depois de ordenar
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.ShellSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por Nome":
+                        Algoritmos.ShellSort.resetaTroca();
+                        Algoritmos.ShellSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.ShellSort.shellsortNomeFavorecido(infoBolsa);
+                        // Tempo depois de ordenar
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.ShellSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por valor do benefício":
+                        Algoritmos.ShellSort.resetaTroca();
+                        Algoritmos.ShellSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.ShellSort.shellsortValorParcela(infoBolsa);
+                        // Tempo depois de ordenar
+                        tempoFinal = System.currentTimeMillis();
+                        // Setando os segundos que gastou.
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        // Setando a quantidade de trocas q foi feita e logo apos resetando o atributo de trocas.
+                        jLabelTrocas.setText(Long.toString(Algoritmos.BubbleSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.ShellSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                }
                 break;
                 
             case "HeapSort":
-                
+                switch(tipo){
+                    case "Ordenar por ID":
+                        Algoritmos.HeapSort.resetaTroca();
+                        Algoritmos.HeapSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        Algoritmos.HeapSort.HeapSortOrdenadoPorId(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.HeapSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.HeapSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : infoBolsa)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por UF":
+                        Algoritmos.HeapSort.resetaTroca();
+                        Algoritmos.HeapSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        Algoritmos.HeapSort.HeapSortOrdenadoPorUfEstado(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.HeapSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.HeapSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : infoBolsa)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+          
+                    break;
+                    
+                    case "Ordenar por NIS":
+                        Algoritmos.HeapSort.resetaTroca();
+                        Algoritmos.HeapSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        Algoritmos.HeapSort.HeapSortOrdenadoPorNisFavorecido(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.HeapSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.HeapSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : infoBolsa)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                        
+                        
+                    break;
+                    
+                    case "Ordenar por Cidade":
+                        Algoritmos.HeapSort.resetaTroca();
+                        Algoritmos.HeapSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        Algoritmos.HeapSort.HeapSortOrdenadoPorNomeMunicipio(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.HeapSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.HeapSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : infoBolsa)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por ID Cidade":
+                        Algoritmos.HeapSort.resetaTroca();
+                        Algoritmos.HeapSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        Algoritmos.HeapSort.HeapSortOrdenadoPorCodigoMunicipio(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.HeapSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.HeapSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : infoBolsa)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por Nome":
+                        Algoritmos.HeapSort.resetaTroca();
+                        Algoritmos.HeapSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        Algoritmos.HeapSort.HeapSortOrdenadoPorNomeFavorecido(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.HeapSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.HeapSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : infoBolsa)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por valor do benefício":
+                        Algoritmos.HeapSort.resetaTroca();
+                        Algoritmos.HeapSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        Algoritmos.HeapSort.HeapSortOrdenadoPorValorParcela(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.HeapSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.HeapSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        for(BolsaFamilia dado : infoBolsa)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                }
                 break;
                 
             case "MergeSort":
-                
-                break;
+                switch(tipo){
+                    case "Ordenar por ID":
+                        Algoritmos.MergeSort.resetaTroca();
+                        Algoritmos.MergeSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.MergeSort.MergeSortID(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.MergeSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.MergeSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por UF":
+                        Algoritmos.MergeSort.resetaTroca();
+                        Algoritmos.MergeSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.MergeSort.MergeSortUfEstado(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.MergeSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.MergeSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por NIS":
+                        Algoritmos.MergeSort.resetaTroca();
+                        Algoritmos.MergeSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.MergeSort.MergeSortNisFavorecido(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.MergeSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.MergeSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por Cidade":
+                        Algoritmos.MergeSort.resetaTroca();
+                        Algoritmos.MergeSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.MergeSort.MergeSortNomeMunicipio(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.MergeSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.MergeSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por ID Cidade":
+                        Algoritmos.MergeSort.resetaTroca();
+                        Algoritmos.MergeSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.MergeSort.MergeSortIDMunicipio(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.MergeSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.MergeSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por Nome":
+                        Algoritmos.MergeSort.resetaTroca();
+                        Algoritmos.MergeSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.MergeSort.MergeSortNomeFavorecido(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.MergeSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.MergeSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por valor do benefício":
+                        Algoritmos.MergeSort.resetaTroca();
+                        Algoritmos.MergeSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        arrayOrdenado = Algoritmos.MergeSort.MergeSortValorBeneficio(infoBolsa);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.MergeSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.MergeSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        
+                        for(BolsaFamilia dado : arrayOrdenado)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                }
+            break;
                 
             case "QuickSort":
-                
-                break;
+                switch(tipo){
+                    case "Ordenar por ID":
+                        Algoritmos.QuickSort.resetaTroca();
+                        Algoritmos.QuickSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        Algoritmos.QuickSort.QuickSortOrdenadoPorID(infoBolsa, 0, infoBolsa.size()-1);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.QuickSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.QuickSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        
+                        for(BolsaFamilia dado : infoBolsa)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
                     
-                
+                    case "Ordenar por UF":
+                        Algoritmos.QuickSort.resetaTroca();
+                        Algoritmos.QuickSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        Algoritmos.QuickSort.QuickSortOrdenadoPorUF(infoBolsa, 0, infoBolsa.size()-1);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.QuickSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.QuickSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        
+                        for(BolsaFamilia dado : infoBolsa)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
                     
-                   
-            
-        }
-        if(nomeMetodo == "BubbleSort"){
-           
-            ArrayList<BolsaFamilia> arrayOrdenado = new ArrayList<>();
-            arrayOrdenado = Algoritmos.BubbleSort.bubbleSortUfEstado(infoBolsa);
-            try {
-                classeLer.escreverArquivoOrganizado("bubbleSort/ordenadoPorUfEstado", arrayOrdenado);
-                tbd.getDataVector().clear();// limpa a tabela
-                
-             
-                    for (BolsaFamilia dado : infoBolsa) {// aki ele percorre minha list
-                        tbd.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(),dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});// adiciona na jtbale
+                    case "Ordenar por NIS":
+                        Algoritmos.QuickSort.resetaTroca();
+                        Algoritmos.QuickSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        Algoritmos.QuickSort.QuickSortOrdenadoPorNIS(infoBolsa, 0, infoBolsa.size()-1);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.QuickSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.QuickSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        
+                        for(BolsaFamilia dado : infoBolsa)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por Cidade":
+                        Algoritmos.QuickSort.resetaTroca();
+                        Algoritmos.QuickSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        Algoritmos.QuickSort.QuickSortOrdenadoPorNomeMunicipio(infoBolsa, 0, infoBolsa.size()-1);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.QuickSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.QuickSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        
+                        for(BolsaFamilia dado : infoBolsa)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por ID Cidade":
+                        Algoritmos.QuickSort.resetaTroca();
+                        Algoritmos.QuickSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        Algoritmos.QuickSort.QuickSortOrdenadoPorIDMunicipio(infoBolsa, 0, infoBolsa.size()-1);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.QuickSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.QuickSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        
+                        for(BolsaFamilia dado : infoBolsa)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por Nome":
+                        Algoritmos.QuickSort.resetaTroca();
+                        Algoritmos.QuickSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        Algoritmos.QuickSort.QuickSortOrdenadoPorNomePessoa(infoBolsa, 0, infoBolsa.size()-1);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.QuickSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.QuickSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        
+                        for(BolsaFamilia dado : infoBolsa)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
+                    
+                    case "Ordenar por valor do benefício":
+                        Algoritmos.QuickSort.resetaTroca();
+                        Algoritmos.QuickSort.resetaComparacao();
+                        tempoInicial = System.currentTimeMillis();
+                        Algoritmos.QuickSort.QuickSortOrdenadoPorValor(infoBolsa, 0, infoBolsa.size()-1);
+                        tempoFinal = System.currentTimeMillis();
+                        jLabelSeg.setText(Double.toString(((tempoFinal - tempoInicial)/1000)));
+                        jLabelTrocas.setText(Long.toString(Algoritmos.QuickSort.getTroca()));
+                        jLabelComp.setText(Long.toString(Algoritmos.QuickSort.getComparacao()));
+                        
+                        jTable1.getDataVector().clear();
+                        
+                        for(BolsaFamilia dado : infoBolsa)
+                            jTable1.addRow(new Object[]{dado.getId(), dado.getUfEstado(), dado.getNisFavorecido(), dado.getNomeMunicipio(), 
+                                dado.getCodigoMunicipio(),dado.getNomeFavorecido(),dado.getValorParcela()});
+                    break;
                 }
-            } catch (IOException ex) {
-                Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }else{
-            System.out.print("fodasse");
-            
+            break;
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+//        arrayInformacoes.add(new Ordenacao(nomeMetodo, tipo, Algoritmos.BubbleSort.getComparacao(), Algoritmos.BubbleSort.getTroca(), ((tempoFinal - tempoInicial)/1000)));
+//        System.out.println(arrayInformacoes.size());
+    }//GEN-LAST:event_btnOrdenarActionPerformed
 
+    private void btnSalvarOrdenacaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarOrdenacaoActionPerformed
+        // Pegando as informações selecionadas no comboBox.
+        String nomeMetodo = (String) jComboBox1.getSelectedItem();
+        String tipo = (String) cbTipoOrdenacao.getSelectedItem();
+        
+        File arquivo = new File("dados.txt");
+        Arquivo gerenciadorArquivos = new Arquivo();
+
+        // Itens bolsa familia
+        ArrayList<BolsaFamilia> infoBolsa = new ArrayList<>();
+        // Lendo o arquivo
+        ArrayList leitura = null;
+        try {
+            leitura = gerenciadorArquivos.lerArquivo(arquivo);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // ArrayList que será preenchido e organizado.
+        for (int i = 0; i < leitura.size(); i++) {
+            String linha = leitura.get(i).toString();
+            String[] campoConvertido = linha.split(",");
+
+            // Criando o objeto e adicionando ao arrayList do tipo BolsaFamilia
+            BolsaFamilia info = new BolsaFamilia(Long.parseLong(campoConvertido[0]), campoConvertido[1], Integer.parseInt(campoConvertido[2]), campoConvertido[3],
+                    Long.parseLong(campoConvertido[4]), campoConvertido[5], Float.parseFloat(campoConvertido[6]));
+
+            infoBolsa.add(info);
+        }
+        
+        btnOrdenarActionPerformed(evt);
+        switch(nomeMetodo){
+            case "BubbleSort":
+                switch(tipo){
+                    case "Ordenar por ID":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("bubbleSort/ordenadoPorID", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por UF":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("bubbleSort/ordenadoPorUF", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por NIS":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("bubbleSort/ordenadoPorNIS", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por Cidade":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("bubbleSort/ordenadoPorCidade", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por ID Cidade":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("bubbleSort/ordenadoPorIdCidade", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por Nome":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("bubbleSort/ordenadoPorNomeFavorecido", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por valor do benefício":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("bubbleSort/ordenadoPorValorParcela", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                }
+            break;
+            
+            case "SelectionSort":
+                switch(tipo){
+                    case "Ordenar por ID":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("selectionSort/ordenadoPorID", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por UF":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("selectionSort/ordenadoPorUF", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por NIS":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("selectionSort/ordenadoPorNIS", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por Cidade":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("selectionSort/ordenadoPorCidade", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por ID Cidade":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("selectionSort/ordenadoPorIdCidade", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por Nome":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("selectionSort/ordenadoPorNomeFavorecido", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por valor do benefício":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("selectionSort/ordenadoPorValorParcela", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                }
+            break;
+            
+            case "InsertionSort":
+                switch(tipo){
+                    case "Ordenar por ID":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("insertionSort/ordenadoPorID", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por UF":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("insertionSort/ordenadoPorUF", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por NIS":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("insertionSort/ordenadoPorNIS", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por Cidade":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("insertionSort/ordenadoPorCidade", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por ID Cidade":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("insertionSort/ordenadoPorIdCidade", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por Nome":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("insertionSort/ordenadoPorNomeFavorecido", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por valor do benefício":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("insertionSort/ordenadoPorValorParcela", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                }
+            break;
+            
+            case "ShellSort":
+                switch(tipo){
+                    case "Ordenar por ID":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("shellSort/ordenadoPorID", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por UF":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("shellSort/ordenadoPorUF", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por NIS":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("shellSort/ordenadoPorNIS", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por Cidade":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("shellSort/ordenadoPorCidade", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por ID Cidade":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("shellSort/ordenadoPorIdCidade", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por Nome":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("shellSort/ordenadoPorNomeFavorecido", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por valor do benefício":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("shellSort/ordenadoPorValorParcela", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                }
+            break;
+            
+            case "HeapSort":
+                switch(tipo){
+                    case "Ordenar por ID":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("HeapSort/ordenadoPorID", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por UF":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("HeapSort/ordenadoPorUF", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por NIS":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("HeapSort/ordenadoPorNIS", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por Cidade":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("HeapSort/ordenadoPorCidade", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por ID Cidade":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("HeapSort/ordenadoPorIdCidade", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por Nome":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("HeapSort/ordenadoPorNomeFavorecido", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por valor do benefício":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("HeapSort/ordenadoPorValorParcela", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                }
+            break;
+            
+            case "MergeSort":
+                switch(tipo){
+                    case "Ordenar por ID":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("mergeSort/ordenadoPorID", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por UF":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("mergeSort/ordenadoPorUF", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por NIS":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("mergeSort/ordenadoPorNIS", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por Cidade":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("mergeSort/ordenadoPorCidade", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por ID Cidade":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("mergeSort/ordenadoPorIdCidade", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por Nome":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("mergeSort/ordenadoPorNomeFavorecido", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por valor do benefício":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("mergeSort/ordenadoPorValorParcela", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                }
+            break;
+            
+            case "QuickSort":
+                switch(tipo){
+                    case "Ordenar por ID":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("QuickSort/ordenadoPorID", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por UF":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("QuickSort/ordenadoPorUF", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por NIS":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("QuickSort/ordenadoPorNIS", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por Cidade":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("QuickSort/ordenadoPorCidade", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por ID Cidade":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("QuickSort/ordenadoPorIdCidade", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por Nome":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("QuickSort/ordenadoPorNomeFavorecido", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                    
+                    case "Ordenar por valor do benefício":
+                        try {
+                            gerenciadorArquivos.escreverArquivoOrganizado("QuickSort/ordenadoPorValorParcela", arrayOrdenado);
+                            JOptionPane.showMessageDialog(null, "Arquivo Criado com Sucesso!");
+                        } catch (IOException ex) {
+                            Logger.getLogger(ViewAlgoritimos.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    break;
+                }
+            break;
+        }
+    }//GEN-LAST:event_btnSalvarOrdenacaoActionPerformed
+   
     /**
      * @param args the command line arguments
      */
@@ -288,18 +1719,21 @@ public class ViewAlgoritimos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnOrdenar;
+    private javax.swing.JButton btnSalvarOrdenacao;
     private javax.swing.JComboBox<String> cbTipoOrdenacao;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabelComp;
+    private javax.swing.JLabel jLabelSeg;
+    private javax.swing.JLabel jLabelTrocas;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tbDados;
     // End of variables declaration//GEN-END:variables
-
-    
-
 }

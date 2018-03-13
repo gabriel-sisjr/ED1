@@ -13,6 +13,27 @@ import java.util.ArrayList;
  * @author Gabriel
  */
 public class InsertionSort {
+    // Atributos
+    public static long comparacao = 0;
+    public static long troca = 0;
+    public static long registro;
+
+    public static long getComparacao(){
+        return comparacao;
+    }
+    
+    public static long getTroca(){
+        return troca;
+    }
+
+    public static long resetaComparacao(){
+        return InsertionSort.comparacao =0;
+    }
+
+    public static long resetaTroca(){
+        return InsertionSort.troca=0;
+    }
+    
     // Ordenando por Id da linha
     public static ArrayList insertionSortId(ArrayList<BolsaFamilia> array) {
         int in, out;
@@ -20,10 +41,11 @@ public class InsertionSort {
         for(out=1; out<array.size(); out++){
             BolsaFamilia temp = array.get(out);
             in = out;
-            
+            comparacao++;
             while(in>0 && array.get(in-1).getId() >= temp.getId()){
                 array.set(in, array.get(in-1));
                 --in;
+                troca++;
             }
             array.set(in, temp);
         }
@@ -38,9 +60,11 @@ public class InsertionSort {
             BolsaFamilia temp = array.get(out);
             in = out;
             
+            comparacao++;
             while(in>0 && array.get(in-1).getUfEstado().compareTo(temp.getUfEstado())>= 0){
                 array.set(in, array.get(in-1));
                 --in;
+                troca++;
             }
             array.set(in, temp);
         }
@@ -55,9 +79,11 @@ public class InsertionSort {
             BolsaFamilia temp = array.get(out);
             in = out;
             
+            comparacao++;
             while(in>0 && array.get(in-1).getCodigoMunicipio()>= temp.getCodigoMunicipio()){
                 array.set(in, array.get(in-1));
                 --in;
+                troca++;
             }
             array.set(in, temp);
         }
@@ -72,9 +98,11 @@ public class InsertionSort {
             BolsaFamilia temp = array.get(out);
             in = out;
             
+            comparacao++;
             while(in>0 && array.get(in-1).getNisFavorecido()>= temp.getNisFavorecido()){
                 array.set(in, array.get(in-1));
                 --in;
+                troca++;
             }
             array.set(in, temp);
         }
@@ -89,9 +117,11 @@ public class InsertionSort {
             BolsaFamilia temp = array.get(out);
             in = out;
             
+            comparacao++;
             while(in>0 && array.get(in-1).getNomeMunicipio().compareTo(temp.getNomeMunicipio())>= 0){
                 array.set(in, array.get(in-1));
                 --in;
+                troca++;
             }
             array.set(in, temp);
         }
@@ -106,9 +136,11 @@ public class InsertionSort {
             BolsaFamilia temp = array.get(out);
             in = out;
             
+            comparacao++;
             while(in>0 && array.get(in-1).getNomeFavorecido().compareTo(temp.getNomeFavorecido())>= 0){
                 array.set(in, array.get(in-1));
                 --in;
+                troca++;
             }
             array.set(in, temp);
         }
@@ -123,9 +155,11 @@ public class InsertionSort {
             BolsaFamilia temp = array.get(out);
             in = out;
             
+            comparacao++;
             while(in>0 && array.get(in-1).getValorParcela()>= temp.getValorParcela()){
                 array.set(in, array.get(in-1));
                 --in;
+                troca++;
             }
             array.set(in, temp);
         }

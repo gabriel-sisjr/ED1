@@ -13,6 +13,26 @@ import java.util.ArrayList;
  * @author Gabriel
  */
 public class ShellSort {
+    // Atributos
+    public static long comparacao = 0;
+    public static long troca = 0;
+    public static long registro;
+
+    public static long getComparacao(){
+        return comparacao;
+    }
+    
+    public static long getTroca(){
+        return troca;
+    }
+
+    public static long resetaComparacao(){
+        return ShellSort.comparacao =0;
+    }
+
+    public static long resetaTroca(){
+        return ShellSort.troca=0;
+    }
     // Ordenando por Id da linha
     public static ArrayList shellsortId(ArrayList<BolsaFamilia> array){
         int in, out;
@@ -26,10 +46,11 @@ public class ShellSort {
             for(out = h; out<array.size(); out++){
                 temp = array.get(out);
                 in = out;
-                
+                comparacao++;
                 while(in > h-1 && array.get(in-h).getId() >= temp.getId()){
                     array.set(in, array.get(in-h));
                     in -= h;
+                    troca++;
                 }
                 array.set(in, temp);
             }
@@ -52,9 +73,11 @@ public class ShellSort {
                 temp = array.get(out);
                 in = out;
                 
+                comparacao++;
                 while(in > h-1 && array.get(in-h).getUfEstado().compareTo(temp.getUfEstado()) >= 0){
                     array.set(in, array.get(in-h));
                     in -= h;
+                    troca++;
                 }
                 array.set(in, temp);
             }
@@ -77,9 +100,11 @@ public class ShellSort {
                 temp = array.get(out);
                 in = out;
                 
+                comparacao++;
                 while(in > h-1 && array.get(in-h).getCodigoMunicipio()>= temp.getCodigoMunicipio()){
                     array.set(in, array.get(in-h));
                     in -= h;
+                    troca++;
                 }
                 array.set(in, temp);
             }
@@ -102,9 +127,11 @@ public class ShellSort {
                 temp = array.get(out);
                 in = out;
                 
+                comparacao++;
                 while(in > h-1 && array.get(in-h).getNisFavorecido()>= temp.getNisFavorecido()){
                     array.set(in, array.get(in-h));
                     in -= h;
+                    troca++;
                 }
                 array.set(in, temp);
             }
@@ -127,9 +154,11 @@ public class ShellSort {
                 temp = array.get(out);
                 in = out;
                 
+                comparacao++;
                 while(in > h-1 && array.get(in-h).getNomeMunicipio().compareTo(temp.getNomeMunicipio()) >= 0){
                     array.set(in, array.get(in-h));
                     in -= h;
+                    troca++;
                 }
                 array.set(in, temp);
             }
@@ -152,9 +181,11 @@ public class ShellSort {
                 temp = array.get(out);
                 in = out;
                 
+                comparacao++;
                 while(in > h-1 && array.get(in-h).getNomeFavorecido().compareTo(temp.getNomeFavorecido()) >= 0){
                     array.set(in, array.get(in-h));
                     in -= h;
+                    troca++;
                 }
                 array.set(in, temp);
             }
@@ -177,9 +208,11 @@ public class ShellSort {
                 temp = array.get(out);
                 in = out;
                 
+                comparacao++;
                 while(in > h-1 && array.get(in-h).getValorParcela()>= temp.getValorParcela()){
                     array.set(in, array.get(in-h));
                     in -= h;
+                    troca++;
                 }
                 array.set(in, temp);
             }

@@ -5,21 +5,16 @@
  */
 package Views;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Itatechjr
  */
 public class ViewInicio extends javax.swing.JFrame {
-
-    static ArrayList<ViewAlgoritimos> telaAlgoritimos;
     
     public ViewInicio() {
         initComponents();
-        
-        telaAlgoritimos = new ArrayList<>();
-                
+        this.setResizable(false);
+        this.setTitle("Algoritmos de Ordenação");
         lbIniciar.setToolTipText("Iniciar ordenações");
     }
     
@@ -52,29 +47,30 @@ public class ViewInicio extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(172, 172, 172)
+                .addContainerGap(155, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap(134, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(151, 151, 151))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(194, 194, 194)
                 .addComponent(lbIniciar)
-                .addGap(181, 181, 181))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel1)
-                .addGap(136, 136, 136)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 142, Short.MAX_VALUE)
                 .addComponent(lbIniciar)
-                .addContainerGap(188, Short.MAX_VALUE))
+                .addGap(129, 129, 129))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbIniciarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbIniciarMouseClicked
-        abrirAlgoritimos();
+        new ViewAlgoritimos().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_lbIniciarMouseClicked
 
     /**
@@ -116,13 +112,4 @@ public class ViewInicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbIniciar;
     // End of variables declaration//GEN-END:variables
-
-     private void abrirAlgoritimos() {
-        if(telaAlgoritimos.isEmpty()){
-            ViewAlgoritimos construir = new ViewAlgoritimos();
-            telaAlgoritimos.add(construir);
-            construir.setVisible(true);
-        }else telaAlgoritimos.get(0).setAlwaysOnTop(true);
-    }
-    
 }

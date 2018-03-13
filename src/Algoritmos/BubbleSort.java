@@ -13,6 +13,27 @@ import java.util.ArrayList;
  * @author Gabriel
  */
 public class BubbleSort {
+    
+    public static long comparacao = 0;
+    public static long troca = 0;
+    public static long registro;
+
+    public static long getComparacao(){
+        return comparacao;
+    }
+    
+    public static long getTroca(){
+        return troca;
+    }
+
+    public static long resetaComparacao(){
+        return BubbleSort.comparacao =0;
+    }
+
+    public static long resetaTroca(){
+        return BubbleSort.troca=0;
+    }
+    
     // Ordenando por Id da linha
     public static ArrayList bubbleSortId(ArrayList<BolsaFamilia> arrayBolsaFamilia) {
         for (int j = arrayBolsaFamilia.size() - 1; j > 1; j--) {
@@ -20,9 +41,11 @@ public class BubbleSort {
                 BolsaFamilia objetoIndice = arrayBolsaFamilia.get(i);
                 BolsaFamilia objetoIndiceMais1 = arrayBolsaFamilia.get((i + 1));
                 // Testando os itens
+                comparacao++;
                 if (objetoIndice.getId() > objetoIndiceMais1.getId()){
                     arrayBolsaFamilia.set(i, objetoIndiceMais1);
                     arrayBolsaFamilia.set(i+1, objetoIndice);
+                    troca++;
                 }
             }
         }
@@ -36,9 +59,11 @@ public class BubbleSort {
                 BolsaFamilia objetoIndice = arrayBolsaFamilia.get(i);
                 BolsaFamilia objetoIndiceMais1 = arrayBolsaFamilia.get((i + 1));
                 // Testando os itens
+                comparacao++;
                 if (objetoIndice.getUfEstado().compareTo(objetoIndiceMais1.getUfEstado()) > 0) {
                     arrayBolsaFamilia.set(i, objetoIndiceMais1);
                     arrayBolsaFamilia.set(i+1, objetoIndice);
+                    troca++;
                 }
             }
         }
